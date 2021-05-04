@@ -1,64 +1,23 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {HOME_FLATLIST_BACKGROUND} from '../../constant/styles';
+import { handleNavigateToAdd } from '../../utils/footer/footer.utils';
 
 const Footer = () => {
+  const navigation=useNavigation();
+  
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{
-          backgroundColor: HOME_FLATLIST_BACKGROUND,
-          flex: 1,
-          height: '100%',
-          borderTopRightRadius: 100,
-          justifyContent: 'center',
-          zIndex:10,
-          alignItems:'center'
-        }}>
-       <Image source={require("../../assets/icons/todo.png")} />
+      <TouchableOpacity style={styles.todoButton}>
+        <Image source={require('../../assets/icons/todo.png')} />
       </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          backgroundColor: '#2980b9',
-          elevation: 8,
-          flex: 1,
-          height: '100%',
-          position: 'absolute',
-          left: '50%',
-          bottom: 30,
-          zIndex: 40,
-          width: 50,
-          height: 50,
-          transform: [{translateX: -25}],
-          borderRadius: 80,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-            <Image source={require("../../assets/icons/edit.png")} />
+      <TouchableOpacity onPress={handleNavigateToAdd(navigation)} style={styles.addDiary}>
+        <Image source={require('../../assets/icons/edit.png')} />
       </TouchableOpacity>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          backgroundColor: HOME_FLATLIST_BACKGROUND,
-          height: 30,
-          width: '100%',
-          zIndex:0
-        }}
-      />
-      <TouchableOpacity
-        style={{
-          backgroundColor: HOME_FLATLIST_BACKGROUND,
-          flex: 1,
-          height: '100%',
-          borderTopLeftRadius: 100,
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex:10,
-          
-        }}>
-            <Image source={require("../../assets/icons/message.png")} />
+      <View style={styles.tempView} />
+      <TouchableOpacity style={styles.message}>
+        <Image source={require('../../assets/icons/message.png')} />
       </TouchableOpacity>
     </View>
   );
@@ -73,5 +32,48 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  todoButton: {
+    backgroundColor: HOME_FLATLIST_BACKGROUND,
+    flex: 1,
+    height: '100%',
+    borderTopRightRadius: 100,
+    justifyContent: 'center',
+    zIndex: 10,
+    alignItems: 'center',
+  },
+  addDiary: {
+    backgroundColor: '#2980b9',
+    elevation: 8,
+    flex: 1,
+    height: '100%',
+    position: 'absolute',
+    left: '50%',
+    bottom: 30,
+    zIndex: 40,
+    width: 50,
+    height: 50,
+    transform: [{translateX: -25}],
+    borderRadius: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tempView: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    backgroundColor: HOME_FLATLIST_BACKGROUND,
+    height: 30,
+    width: '100%',
+    zIndex: 0,
+  },
+  message: {
+    backgroundColor: HOME_FLATLIST_BACKGROUND,
+    flex: 1,
+    height: '100%',
+    borderTopLeftRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
   },
 });
