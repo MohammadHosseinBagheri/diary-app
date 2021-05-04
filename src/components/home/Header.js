@@ -23,6 +23,9 @@ const Header = () => {
       </Left>
       <Right style={styles.right}>
         <TouchableOpacity>
+          <Image  source={require('../../assets/icons/sun.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity>
           <Image style={styles.iconColor} source={require('../../assets/icons/arrow-swap.png')} />
         </TouchableOpacity>
         <TouchableOpacity>
