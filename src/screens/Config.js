@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator, DrawerContent} from '@react-navigation/drawer';
 
 import {
+  ADD_DIARY_SCREEN,
   HOME_SCREEN,
   LOGIN_SCREEN,
   REGISTER_SCREEN,
@@ -14,6 +15,7 @@ import HomeScreen from './home/HomeScreen';
 import LoginScreen from './auth/login/LoginScreen';
 import RegisterScreen from './auth/register/RegisterScreen';
 import CustomDrawerContent from '../components/common/drawer/DrawerContent';
+import AddDiary from './diary/AddDiaryScreen';
 
 // const Stack = createStackNavigator();
 // const MainStack = () => (
@@ -37,8 +39,9 @@ const DrawerNavigator = () => {
       }}
       drawerContent={CustomDrawerContent}>
       <Drawer.Screen name={HOME_SCREEN} component={HomeScreen} />
-      <Drawer.Screen name={SPLASH_SCREEN} component={SplashScreen} />
       <Drawer.Screen name={LOGIN_SCREEN} component={LoginScreen} />
+      <Drawer.Screen name={ADD_DIARY_SCREEN} component={AddDiary} />
+      <Drawer.Screen name={SPLASH_SCREEN} component={SplashScreen} />
       <Drawer.Screen name={REGISTER_SCREEN} component={RegisterScreen} />
     </Drawer.Navigator>
   );
