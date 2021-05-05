@@ -8,7 +8,7 @@ import {
   FlatList,
   ImageBackground,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import Header from '../../components/home/Header';
 import {
@@ -19,10 +19,22 @@ import {
 import * as Animatable from 'react-native-animatable';
 import EmptyFlatList from '../../components/home/EmptyFlatList';
 import Footer from '../../components/home/Footer';
+import useOpenRealm from '../../hooks/OpenRealm';
+import {useEffect, useState} from 'react';
+import {getAllDiary} from '../../utils/home/home.utils';
+import {DiarySchema} from '../../schema/Diary';
+import DiaryFlatListItem from '../../components/home/DiaryFlatListItem';
 const FlastListAnimation = Animatable.createAnimatableComponent(FlatList);
 const HomeScreen = () => {
+  const realm = useOpenRealm(DiarySchema);
+  const [diary, setDiary] = useState([]);
+  console.log('diary', diary);
+  useEffect(() => {
+    getAllDiary(realm, setDiary);
+    return () => {};
+  }, [realm]);
   return (
-      <>
+    <>
       <StatusBar backgroundColor={BACKGROUND_COLOR} />
       <Header />
       <View style={styles.constainer}>
@@ -42,17 +54,37 @@ const HomeScreen = () => {
           style={styles.text}>
           {new Date().getFullYear()}
         </Animatable.Text>
-        <FlastListAnimation
+        {/* <FlastListAnimation
           animation="fadeInDown"
-          style={{elevation:10,padding:MAIN_PADDING}}
-          contentContainerStyle={{elevation:10}}
+          style={{elevation: 10, padding: MAIN_PADDING}}
+          contentContainerStyle={{elevation: 10}}
           useNativeDriver
           duration={500}
           delay={300}
-          data={null}
+          data={diary}
+          ListEmptyComponent={EmptyFlatList}
+        /> */}
+        <FlastListAnimation
+          animation="fadeInDown"
+          style={{padding: MAIN_PADDING, zIndex: 1, marginBottom: 5}}
+          contentContainerStyle={{zIndex: 1}}
+          useNativeDriver
+          duration={500}
+          delay={300}
+          keyExtractor={item => String(item._id)}
+          data={diary}
+          snapToInterval={150 + MAIN_PADDING * 2 }
+          renderItem={({item, index}) => (
+            <DiaryFlatListItem
+              index={index}
+              title={item.title}
+              text={item.text}
+              id={item._id}
+            />
+          )}
           ListEmptyComponent={EmptyFlatList}
         />
-      <Footer />
+        <Footer />
       </View>
     </>
   );
@@ -64,10 +96,11 @@ const styles = StyleSheet.create({
   constainer: {
     backgroundColor: BACKGROUND_COLOR,
     flex: 1,
+    zIndex: 5,
   },
   image: {
     width: '100%',
     height: PixelRatio.get() * 100,
   },
-  text: {color: '#fff', fontSize: 18, padding:MAIN_PADDING,paddingBottom: 5},
+  text: {color: '#fff', fontSize: 18, padding: MAIN_PADDING, paddingBottom: 5},
 });
