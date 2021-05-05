@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import Realm from 'realm';
-import {UserSchema} from '../schema/User';
-const openRealm = async () => {
+const openRealm = async schema => {
   let realm = await Realm.open({
     path: 'myrealm',
-    schema: [UserSchema],
+    schema: [schema],
   });
   return realm;
 };
-const useOpenRealm =  () => {
+const useOpenRealm = schema => {
   const [realm, setRealm] = useState(null);
   useEffect(() => {
-    openRealm().then(data => setRealm(data));
+    openRealm(schema).then(data => setRealm(data));
   }, []);
 
   return realm;
