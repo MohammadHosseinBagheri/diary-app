@@ -2,19 +2,38 @@ import {Alert} from 'react-native';
 import {HOME_SCREEN} from '../../constant/routes';
 
 export const handleSubmit = async (values, navigation, realm, alertOpen) => {
-  let user;
-  await realm.write(async () => {
-    user = await realm.create('user', {
-      _id: 9,
-      email: values.email,
-      password: values.password,
+  //get user
+  let user = await realm.objects('user');
+
+  const isExist = await user.find(item => item.email === values.email);
+
+  //if user not found create user
+  if (!isExist) {
+    await realm.write(async () => {
+      //create user
+      let res = realm.create('user', {
+        _id: Math.round(Math.random() * 10000),
+        email: values.email,
+        password: values.password,
+      });
+      if (res) {
+        realm.close();
+        navigation.navigate(HOME_SCREEN);
+      } else alertOpen('isnt', false);
     });
-  });
-  if (!user) {
-    alertOpen('Registration is failed');
-  } else {
-    realm.close();
-    navigation.navigate(HOME_SCREEN);
   }
-  console.log('user', user);
+  //user found and now check validation
+  else {
+    const {email, password} = isExist;
+    //check password
+    if (password === values.password) {
+      alertOpen('Successful', true);
+      setTimeout(() => {
+        navigation.navigate(HOME_SCREEN, {user: {...isExist}});
+        realm.close();
+      }, 2000);
+    } else {
+      alertOpen('Check Username or Password');
+    }
+  }
 };
