@@ -38,8 +38,8 @@ const DrawerNavigator = () => {
         width: '100%',
       }}
       drawerContent={CustomDrawerContent}>
-      <Drawer.Screen name={LOGIN_SCREEN} component={LoginScreen} />
       <Drawer.Screen name={HOME_SCREEN} component={HomeScreen} />
+      <Drawer.Screen name={LOGIN_SCREEN} component={LoginScreen} />
       <Drawer.Screen name={ADD_DIARY_SCREEN} component={AddDiary} />
       <Drawer.Screen name={SPLASH_SCREEN} component={SplashScreen} />
       <Drawer.Screen name={REGISTER_SCREEN} component={RegisterScreen} />
