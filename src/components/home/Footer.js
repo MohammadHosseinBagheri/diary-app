@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+    zIndex:20
   },
   todoButton: {
     backgroundColor: HOME_FLATLIST_BACKGROUND,
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   },
   addDiary: {
     backgroundColor: '#2980b9',
-    elevation: 8,
+    elevation: 10,
     flex: 1,
     height: '100%',
     position: 'absolute',
