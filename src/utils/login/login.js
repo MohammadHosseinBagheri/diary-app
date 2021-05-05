@@ -17,8 +17,8 @@ export const handleSubmit = async (values, navigation, realm, alertOpen) => {
         password: values.password,
       });
       if (res) {
-        realm.close();
-        navigation.navigate(HOME_SCREEN);
+       await realm.close();
+       await navigation.navigate(HOME_SCREEN);
       } else alertOpen('isnt', false);
     });
   }
@@ -28,9 +28,9 @@ export const handleSubmit = async (values, navigation, realm, alertOpen) => {
     //check password
     if (password === values.password) {
       alertOpen('Successful', true);
-      setTimeout(() => {
-        navigation.navigate(HOME_SCREEN, {user: {...isExist}});
-        realm.close();
+      setTimeout(async () => {
+        await realm.close();
+        await navigation.navigate(HOME_SCREEN);
       }, 2000);
     } else {
       alertOpen('Check Username or Password');
