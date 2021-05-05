@@ -21,10 +21,11 @@ import {handleSubmit} from '../../../utils/login/login';
 import {useNavigation} from '@react-navigation/native';
 import useOpenRealm from '../../../hooks/OpenRealm';
 import Alert from '../../../components/modals/Alert';
+import {UserSchema} from '../../../schema/User';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const realm = useOpenRealm();
+  const realm = useOpenRealm(UserSchema);
   const alertModal = useRef();
   const open = (text, type) => {
     alertModal.current.open(text, type);
@@ -34,6 +35,14 @@ const LoginScreen = () => {
     onSubmit: values => handleSubmit(values, navigation, realm, open),
     validationSchema: validationSchema,
   });
+  useEffect(() => {
+    const test=async()=>{
+      await realm.close()
+    }
+    return () => {
+      test()
+    };
+  }, []);
   console.log(realm);
   return (
     <ScrollView
