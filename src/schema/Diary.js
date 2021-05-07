@@ -4,6 +4,7 @@ export const DiarySchema = {
     _id: 'int',
     title: 'string',
     text: 'string',
+    date:'date'
   },
   primaryKey: '_id',
 };
