@@ -6,15 +6,7 @@ export const getAllDiary = async (realm, setDiary) => {
     _id: item._id,
     title: item.title,
     text: item.text,
+    date:item.date
   }));
   setDiary(allFieldDiary);
-  //   return realm;
-  // realm.write(async () => {
-  //   let diary1 = await realm.create('diary', {
-  //     _id: Math.round(Math.random() * 100000),
-  //     title: 'diary',
-  //     text: 'it is test for M.hossein',
-  //   });
-  //   console.log("diary",diary1)
-  // });
 };
