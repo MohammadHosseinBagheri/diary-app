@@ -14,9 +14,13 @@ import {
 } from '../../constant/styles';
 import * as Animatable from 'react-native-animatable';
 import CardNavbar from '../common/nav-bar/CardNavbar';
+import {navigateToEditScree, removeItem} from '../../utils/diary/diary.utils';
+import {useNavigation} from '@react-navigation/native';
 
 const DiaryFlatListItem = props => {
-  const {title, text, id, index} = props;
+  const {title, text, id, date, index, realm, setDiary} = props;
+  
+  const navigation = useNavigation();
   const animation = {
     0: {translateX: 80 * index, opacity: 0},
     1: {translateX: 0, opacity: 1},
@@ -30,9 +34,25 @@ const DiaryFlatListItem = props => {
       style={styles.container}>
       <TouchableOpacity style={{flex: 1}}>
         <View style={{flexDirection: 'row'}}>
-          <CardNavbar backgroundColor="red"/>
-          <CardNavbar backgroundColor="#FFFF00"/>
-          <CardNavbar backgroundColor="#00E676"/>
+          <CardNavbar
+            backgroundColor="red"
+            onPress={removeItem}
+            diary={{title, text, id}}
+            realm={realm}
+            setDiary={setDiary}
+          />
+          <CardNavbar
+            backgroundColor="#FFFF00"
+            onPress={()=>()=>navigateToEditScree(
+              navigation,
+              realm,
+              setDiary,
+              text,
+              title,
+              id,
+            )}
+          />
+          <CardNavbar backgroundColor="#00E676" />
         </View>
         <View
           style={{
@@ -51,7 +71,7 @@ const DiaryFlatListItem = props => {
             }}
             source={require('../../assets/icons/Calendar.png')}>
             <Text style={{marginBottom: 10, color: '#fff'}}>
-              {new Date().getDay()}
+              {new Date(date).getDate()}
             </Text>
           </ImageBackground>
         </View>
