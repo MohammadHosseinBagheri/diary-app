@@ -28,6 +28,7 @@ const FlastListAnimation = Animatable.createAnimatableComponent(FlatList);
 const HomeScreen = () => {
   const realm = useOpenRealm(DiarySchema);
   const [diary, setDiary] = useState([]);
+  console.log('render')
   console.log('diary', diary);
   useEffect(() => {
     getAllDiary(realm, setDiary);
@@ -80,11 +81,14 @@ const HomeScreen = () => {
               title={item.title}
               text={item.text}
               id={item._id}
+              date={item.date}
+              realm={realm}
+              setDiary={setDiary}
             />
           )}
           ListEmptyComponent={EmptyFlatList}
         />
-        <Footer />
+        <Footer realm={realm} setDiary={setDiary} />
       </View>
     </>
   );
