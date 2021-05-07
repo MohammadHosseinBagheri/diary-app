@@ -1,11 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {MAIN_PADDING} from '../../../constant/styles';
+import {DiarySchema} from '../../../schema/Diary';
 
-const CardNavbar = ({backgroundColor}) => {
+const CardNavbar = ({
+  backgroundColor,
+  diary = null,
+  realm = null,
+  setDiary = null,
+  onPress = () => {},
+}) => {
   return (
     <TouchableOpacity
-      style={[styles.container, {backgroundColor}]}></TouchableOpacity>
+      onPress={onPress(realm, diary, setDiary)}
+      style={[styles.container, {backgroundColor}]}
+    />
   );
 };
 
