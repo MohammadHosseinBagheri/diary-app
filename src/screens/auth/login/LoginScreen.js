@@ -43,7 +43,7 @@ const LoginScreen = () => {
       test()
     };
   }, []);
-  console.log(realm);
+  // console.log(realm);
   return (
     <ScrollView
       horizontal={false}
