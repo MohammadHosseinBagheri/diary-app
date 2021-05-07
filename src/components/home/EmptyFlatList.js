@@ -34,7 +34,7 @@ export default EmptyFlatList;
 const styles = StyleSheet.create({
   emptyList: {
     backgroundColor: HOME_FLATLIST_BACKGROUND,
-    height: PixelRatio.get() * 65,
+    minHeight:200,
     borderRadius: 14,
     padding: MAIN_PADDING,
   },
