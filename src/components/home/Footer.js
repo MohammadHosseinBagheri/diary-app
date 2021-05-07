@@ -1,18 +1,22 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {useEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {HOME_FLATLIST_BACKGROUND} from '../../constant/styles';
-import { handleNavigateToAdd } from '../../utils/footer/footer.utils';
+import {handleNavigateToAdd} from '../../utils/footer/footer.utils';
 
-const Footer = () => {
-  const navigation=useNavigation();
-  
+const Footer = props => {
+  const navigation = useNavigation();
+  const {realm, setDiary} = props;
+  // console.log('realmmmmmmmm', realm);
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.todoButton}>
         <Image source={require('../../assets/icons/todo.png')} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleNavigateToAdd(navigation)} style={styles.addDiary}>
+      <TouchableOpacity
+        onPress={handleNavigateToAdd(navigation, {realm, setDiary})}
+        style={styles.addDiary}>
         <Image source={require('../../assets/icons/edit.png')} />
       </TouchableOpacity>
       <View style={styles.tempView} />
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    zIndex:20
+    zIndex: 20,
   },
   todoButton: {
     backgroundColor: HOME_FLATLIST_BACKGROUND,
